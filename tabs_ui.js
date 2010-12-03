@@ -1,58 +1,61 @@
 // $Id$
+(function ($) {
 
 Drupal.tabs = Drupal.tabs || {};
 
-Drupal.behaviors.tabs = function (context) {
-  // Set the active class to the first tab with an form error.
-  $('.drupal-tabs').children('ul > li').each( function() {
-    if ($($(this).find('a').attr('href')).find('div.form-item .error:first').size()) {
-      $(this).addClass('error').addClass('ui-tabs-selected');
-    }
-  });
-
-  var fx = {duration: Drupal.settings.tabs.speed};
-  if (Drupal.settings.tabs.fade) {
-    fx.opacity = 'toggle';
-  }
-  if (Drupal.settings.tabs.slide) {
-    fx.height = 'toggle';
-  }
-  // Process custom tabs.
-  var selected = null;
-  $('.drupal-tabs:not(.tabs-processed)', context)
-    .tabs({
-      spinner: Drupal.t('Loading...'),
-      // Add the 'active' class when showing tabs and remove it from siblings.
-      show: function(event, ui) {
-        $(ui.tab).parent('li').addClass('active').siblings('li').removeClass('active');
-      },
-      fx: fx
-    })
-    .find('> ul')
-    .addClass('tabs')
-    .each(function () {
-      // Assign secondary class to nested tabsets.
-      var newClass = $(this).parents('.drupal-tabs').size() > 1 ? 'secondary' : 'primary';
-      $(this)
-        .addClass(newClass)
-        .find('>li:first')
-        .addClass('first')
-        .end()
-        .find('>li:last')
-        .addClass('last');
-    })
-    .after('<span class="clear"></span>')
-    .end()
-    .addClass('tabs-processed')
-    .each(function () {
-      if ($(this).is('.tabs-navigation')) {
-        Drupal.tabs.tabsNavigation(this);
+Drupal.behaviors.tabs = {
+  attach: function (context, settings) {
+    // Set the active class to the first tab with an form error.
+    $('.drupal-tabs').children('ul > li').each( function() {
+      if ($($(this).find('a').attr('href')).find('div.form-item .error:first').size()) {
+        $(this).addClass('error').addClass('ui-tabs-selected');
       }
-    })
-    .show();
+    });
+
+    var fx = {duration: Drupal.settings.tabs.speed};
+    if (Drupal.settings.tabs.fade) {
+      fx.opacity = 'toggle';
+    }
+    if (Drupal.settings.tabs.slide) {
+      fx.height = 'toggle';
+    }
+    // Process custom tabs.
+    var selected = null;
+    $('.drupal-tabs:not(.tabs-processed)', context)
+      .tabs({
+        spinner: Drupal.t('Loading...'),
+        // Add the 'active' class when showing tabs and remove it from siblings.
+        show: function(event, ui) {
+          $(ui.tab).parent('li').addClass('active').siblings('li').removeClass('active');
+        },
+        fx: fx
+      })
+      .find('> ul')
+      .addClass('tabs')
+      .each(function () {
+        // Assign secondary class to nested tabsets.
+        var newClass = $(this).parents('.drupal-tabs').size() > 1 ? 'secondary' : 'primary';
+        $(this)
+          .addClass(newClass)
+          .find('>li:first')
+          .addClass('first')
+          .end()
+          .find('>li:last')
+          .addClass('last');
+      })
+      .after('<span class="clear"></span>')
+      .end()
+      .addClass('tabs-processed')
+      .each(function () {
+        if ($(this).is('.tabs-navigation')) {
+          Drupal.tabs.tabsNavigation(this);
+        }
+      })
+      .show();
+  }
 };
 
-Drupal.tabs.tabsNavigation = function(elt) {
+Drupal.tabs.tabsNavigation = function (elt) {
   // Extract tabset name.
   var tabsetName = $(elt).get(0).id.substring(5);
   var $tabs = $(elt);
@@ -105,3 +108,4 @@ Drupal.tabs.scrollTo = function(elt) {
   }
 };
 
+})(jQuery);
