@@ -1,4 +1,9 @@
 ; $Id$
 name = Tabs
 description = A helper module for creating tabbed pages.
-core = 6.x
+core = 7.x
+
+files[] = tabs.admin.inc
+files[] = tabs.install
+files[] = tabs.module
+files[] = tabs.theme.inc
