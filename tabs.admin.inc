@@ -16,18 +16,16 @@ function tabs_admin_settings() {
     '#title' => t('Effects'),
   );
   $form['effects']['tabs_slide'] = array(
-    '#type' => 'radios',
+    '#type' => 'checkbox',
     '#title' => t('Slide effect'),
     '#description' => t('Apply slide effect when changing tabs.'),
     '#default_value' => variable_get('tabs_slide', 0),
-    '#options' => array(t('disabled'), t('enabled')),
   );
   $form['effects']['tabs_fade'] = array(
-    '#type' => 'radios',
+    '#type' => 'checkbox',
     '#title' => t('Fade effect'),
     '#description' => t('Apply fade effect when changing tabs.'),
     '#default_value' => variable_get('tabs_fade', 0),
-    '#options' => array(t('disabled'), t('enabled')),
   );
   $form['effects']['tabs_speed'] = array(
     '#type' => 'radios',
@@ -41,11 +39,10 @@ function tabs_admin_settings() {
     '#title' => t('Navigation'),
   );
   $form['navigation']['tabs_navigation'] = array(
-    '#type' => 'radios',
+    '#type' => 'checkbox',
     '#title' => t('Navigation buttons'),
     '#description' => t('Enable to add "next" and "previous" buttons to the bottom of all tab sets.'),
     '#default_value' => variable_get('tabs_navigation', 0),
-    '#options' => array(t('disabled'), t('enabled')),
   );
   $form['navigation']['tabs_nav_next'] = array(
     '#type' => 'textfield',
@@ -60,18 +57,16 @@ function tabs_admin_settings() {
     '#default_value' => variable_get('tabs_nav_prev', t('previous')),
   );
   $form['navigation']['tabs_navigation_titles'] = array(
-    '#type' => 'radios',
+    '#type' => 'checkbox',
     '#title' => t('Take captions from tab titles'),
     '#description' => t('Enable to use tht titles of the next or previous tabs for "next" and "previous" button captions. If this option is enabled, the next and previous captions above will be ignored.'),
     '#default_value' => variable_get('tabs_navigation_titles', 0),
-    '#options' => array(t('disabled'), t('enabled')),
   );
   $form['tabs_descriptive_urls'] = array(
-    '#type' => 'radios',
+    '#type' => 'checkbox',
     '#title' => t('Descriptive tab URLs'),
     '#description' => t('Construct a descriptive tab URL from the title of the tab. This can be useful for making URLs of tabs more readable. However, special characters in tab titles are stripped when constructing the URL, which can lead to meaningless URLs on sites using many special characters.'),
     '#default_value' => variable_get('tabs_descriptive_urls', 0),
-    '#options' => array(t('disabled'), t('enabled')),
   );
   return system_settings_form($form);
 }
