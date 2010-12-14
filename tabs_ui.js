@@ -5,18 +5,18 @@ Drupal.tabs = Drupal.tabs || {};
 
 Drupal.behaviors.tabs = {
   attach: function (context, settings) {
-    // Set the active class to the first tab with an form error.
+    // Set the active class to the first tab with a form error.
     $('.drupal-tabs').children('ul > li').each( function() {
       if ($($(this).find('a').attr('href')).find('div.form-item .error:first').size()) {
         $(this).addClass('error').addClass('ui-tabs-selected');
       }
     });
 
-    var fx = {duration: Drupal.settings.tabs.speed};
-    if (Drupal.settings.tabs.fade) {
+    var fx = {duration: settings.tabs.speed};
+    if (settings.tabs.fade) {
       fx.opacity = 'toggle';
     }
-    if (Drupal.settings.tabs.slide) {
+    if (settings.tabs.slide) {
       fx.height = 'toggle';
     }
     // Process custom tabs.
@@ -48,14 +48,14 @@ Drupal.behaviors.tabs = {
       .addClass('tabs-processed')
       .each(function () {
         if ($(this).is('.tabs-navigation')) {
-          Drupal.tabs.tabsNavigation(this);
+          Drupal.tabs.tabsNavigation(settings, this);
         }
       })
       .show();
   }
 };
 
-Drupal.tabs.tabsNavigation = function (elt) {
+Drupal.tabs.tabsNavigation = function (settings, elt) {
   // Extract tabset name.
   var tabsetName = $(elt).get(0).id.substring(5);
   var $tabs = $(elt);
@@ -67,7 +67,7 @@ Drupal.tabs.tabsNavigation = function (elt) {
       $(this).append('<span class="clear"></span><div class="tabs-nav-link-sep"></div>');
     }
     if (i > 1) {
-      var previousText = '‹ ' + (Drupal.settings.tabs.navigation_titles ? $tabs.find('ul > li:eq(' + parseInt(i - 2) + ')').text() : Drupal.settings.tabs.previous_text);
+      var previousText = '‹ ' + (settings.tabs.navigation_titles ? $tabs.find('ul > li:eq(' + parseInt(i - 2) + ')').text() : settings.tabs.previous_text);
       var link = $(document.createElement('a'))
         .append('<span>' + previousText + '</span>')
         .attr('id', 'tabs-' + tabsetName + '-previous-link-' + i)
@@ -81,7 +81,7 @@ Drupal.tabs.tabsNavigation = function (elt) {
       $(this).append(link);
     }
     if (i < count) {
-      var nextText = (Drupal.settings.tabs.navigation_titles ? $tabs.find('ul > li:eq(' + parseInt(i) + ')').text() : Drupal.settings.tabs.next_text) + ' ›';
+      var nextText = (settings.tabs.navigation_titles ? $tabs.find('ul > li:eq(' + parseInt(i) + ')').text() : settings.tabs.next_text) + ' ›';
       var link = $(document.createElement('a'))
         .append('<span>' + nextText + '</span>')
         .attr('id', 'tabs-' + tabsetName + '-next-button-' + i)
