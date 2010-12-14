@@ -128,7 +128,7 @@ function tabs_load() {
     $path = drupal_get_path('module', 'tabs');
 
     drupal_add_library('system', 'ui.tabs');
-    drupal_add_js($path . '/tabs_ui.js');
+    drupal_add_js($path . '/tabs.js');
 
     drupal_add_js(
       array(
