@@ -1,4 +1,3 @@
-// $Id$
 (function ($) {
 
 Drupal.tabs = Drupal.tabs || {};
